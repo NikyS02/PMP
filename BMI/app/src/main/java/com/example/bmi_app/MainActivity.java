@@ -2,6 +2,7 @@ package com.example.bmi_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,10 +26,20 @@ public class MainActivity extends AppCompatActivity {
                 vyska = getVyska();
 
                 BMI = spocitejBMI(vaha, vyska);
-                final TextView textBMI = findViewById(R.id.text_BMI);
-                textBMI.setText(String.format("%f", BMI));
+                final TextView textBMI = findViewById(R.id.textView_BMI);
+                textBMI.setText(String.format("%.2f", BMI));
             }
         });
+
+        Button buttonKlasifikace = findViewById(R.id.buttonKlasifikace);
+        buttonKlasifikace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent swap = new Intent(MainActivity.this, BMIKlasifikace.class);
+                MainActivity.this.startActivity(swap);
+            }
+        });
+
 
     }
 
@@ -44,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
                 return -1;
             } catch (NumberFormatException  e) {
-                Toast toast = Toast.makeText(MainActivity.this, "Number Format", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(MainActivity.this, "Zadaná váha má špatný formát! >:(", Toast.LENGTH_SHORT);
                 toast.show();
                 return -1;
             }
@@ -54,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
 
         public double getVyska() {
             double vyska;
-            TextView textVaha = findViewById(R.id.text_vyska);
+            EditText textVaha = findViewById(R.id.editText_vyska);
             try {
                 vyska = Double.parseDouble(textVaha.getText().toString());
             } catch (NumberFormatException  e) {
-                Toast toast = Toast.makeText(MainActivity.this, "Number Format", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(MainActivity.this, "Zadaná výška má špatný formát! >:(", Toast.LENGTH_SHORT);
                 toast.show();
                 return -1;
             }
@@ -68,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     //BMI = tělesná váha (kg) / tělesná výška na druhou (m)
     public double spocitejBMI(double vaha, double vyska) {
         double BMI;
-        BMI = vaha / (vyska + vyska);
+        BMI = vaha / (vyska * vyska);
 
         return BMI;
     }

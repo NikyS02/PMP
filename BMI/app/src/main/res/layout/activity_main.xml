@@ -80,4 +80,12 @@
         app:layout_constraintStart_toEndOf="@+id/text_BMI"
         app:layout_constraintTop_toBottomOf="@+id/text_vyska" />
 
+    <Button
+        android:id="@+id/buttonKlasifikace"
+        android:layout_width="412dp"
+        android:layout_height="40dp"
+        android:text="Zobrazit klasifikace"
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="24dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
