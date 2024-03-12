@@ -3,10 +3,12 @@ package com.example.bmi_app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.nfc.FormatException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,12 +24,32 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 double BMI, vaha, vyska;
-                vaha = getVaha();
-                vyska = getVyska();
 
-                BMI = spocitejBMI(vaha, vyska);
-                final TextView textBMI = findViewById(R.id.textView_BMI);
-                textBMI.setText(String.format("%.2f", BMI));
+                try{
+                    vaha = getVaha();
+                    vyska = getVyska();
+                    if(vyska == -1 || vaha == -1) throw new FormatException();
+                    BMI = spocitejBMI(vaha, vyska);
+                    String[] klasifikaceHodnoty = getResources().getStringArray(R.array.klasifikaceHodnoty);
+                    int klasifikace = 0;
+                    if(BMI >= 18.5 && BMI < 25) klasifikace = 1;
+                    else if(BMI >= 25 && BMI < 30) klasifikace = 2;
+                    else if(BMI >= 30 && BMI < 35) klasifikace = 3;
+                    else if(BMI >= 35 && BMI < 40) klasifikace = 4;
+                    else if (BMI >= 40) klasifikace = 5;
+                    final TextView textBMI = findViewById(R.id.text_BMI);
+                    textBMI.setText("BMI: " + String.format("%.2f", BMI));
+                    final TextView textKlasifikace = findViewById(R.id.text_klasifikace);
+                    textKlasifikace.setText(klasifikaceHodnoty[klasifikace]);
+                }
+                catch (FormatException e){
+                    Toast.makeText(MainActivity.this, "Špatný formát vstupních hodnot", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+
+
             }
         });
 
@@ -46,19 +68,11 @@ public class MainActivity extends AppCompatActivity {
         public double getVaha() {
             double vaha;
             EditText textVaha = findViewById(R.id.editText_vaha);
-            try {
 //                vaha = Double.parseDouble(textVaha.getText().toString());
                 String vahaS = textVaha.getText().toString();
+
+                if(vahaS.matches("")) return -1;
                 vaha = Double.parseDouble(vahaS);
-            } catch (NullPointerException e) {
-                Toast toast = Toast.makeText(MainActivity.this, "Null Pointer", Toast.LENGTH_SHORT);
-                toast.show();
-                return -1;
-            } catch (NumberFormatException  e) {
-                Toast toast = Toast.makeText(MainActivity.this, "Zadaná váha má špatný formát! >:(", Toast.LENGTH_SHORT);
-                toast.show();
-                return -1;
-            }
 
             return vaha;
         }
@@ -66,13 +80,10 @@ public class MainActivity extends AppCompatActivity {
         public double getVyska() {
             double vyska;
             EditText textVaha = findViewById(R.id.editText_vyska);
-            try {
-                vyska = Double.parseDouble(textVaha.getText().toString());
-            } catch (NumberFormatException  e) {
-                Toast toast = Toast.makeText(MainActivity.this, "Zadaná výška má špatný formát! >:(", Toast.LENGTH_SHORT);
-                toast.show();
-                return -1;
-            }
+
+            String vyskaS = textVaha.getText().toString();
+            if(vyskaS.matches("")) return -1;
+            vyska = Double.parseDouble(vyskaS);
             return vyska;
         }
 

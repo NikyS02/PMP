@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">BMI_App</string>
-    <string name="BMI">BMI</string>
-    <string name="klasifikace">Klasifikace</string>
     <string name="podvaha">&lt; 18,5</string>
     <string name="optimal">18,5 – 24,99</string>
     <string name="nadvaha">25 – 29,99</string>
@@ -14,4 +12,23 @@
     <string name="obezita1_popisek">obezita prvního stupně</string>
     <string name="obezita2_popisek">obezita druhého stupně</string>
     <string name="obezita3_popisek">obezita třetího stupně</string>
+    <string name="klasifikace">Klasifikace</string>
+
+    <string-array name="klasifikaceHodnoty">
+        <item>podváha</item>
+        <item>optimální váha</item>
+        <item>nadváha</item>
+        <item>obezita prvního stupně</item>
+        <item>obezita druhého stupně</item>
+        <item>obezita třetího stupně</item>
+    </string-array>
+    <string name="BMI">BMI</string>
+    <string-array name="bmiHodnoty">
+        <item>&lt; 18,5</item>
+        <item>18,5 - 24,99</item>
+        <item>25 - 29,99</item>
+        <item>30 - 34,99</item>
+        <item>35 - 39,99</item>
+        <item>&gt; 40</item>
+    </string-array>
 </resources>
