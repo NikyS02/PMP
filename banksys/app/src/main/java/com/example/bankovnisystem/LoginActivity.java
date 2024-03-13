@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -15,27 +16,30 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
-        Button ButtonLogin = findViewById(R.id.buttonLogin);
+        Button buttonLogin = findViewById(R.id.buttonLogin);
 
-        ButtonLogin.setOnClickListener(new View.OnClickListener() {
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText EditLogin = findViewById(R.id.editTextTextPersonName);
-                EditText EditPasswd = findViewById(R.id.editTextTextPassword);
-
-                String login = EditLogin.getText().toString();
-                String passwd = EditPasswd.getText().toString();
-
-                //todo button doesnt button
-                if(login == "login" && passwd == "1234") {
-                    loginUser(login);
-                }
+                authorize();
             }
-
-
         });
-
     }
+
+    void authorize() {
+        EditText EditLogin = findViewById(R.id.editTextTextPersonName);
+        EditText EditPasswd = findViewById(R.id.editTextTextPassword);
+
+        String login = EditLogin.getText().toString();
+        String passwd = EditPasswd.getText().toString();
+
+        if(login.equals("login") && passwd.equals("1234")) {
+            loginUser(login);
+        } else {
+            Toast.makeText(LoginActivity.this, "Zadali jste špatné údaje", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     void loginUser(String login) {
         Intent loggedIntent = new Intent(this, MainActivity.class);
         loggedIntent.putExtra("loggedBool", true);
