@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BankovniSystem">
         <activity
+            android:name=".PaymentSummaryActivity"
+            android:exported="false" />
+        <activity
             android:name=".PaymentActivity"
             android:exported="false" />
         <activity
@@ -21,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
     </application>
 
 </manifest>
