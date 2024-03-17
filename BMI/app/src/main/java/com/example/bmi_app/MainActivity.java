@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
                 try{
                     vaha = getVaha();
                     vyska = getVyska();
-                    if(vyska == -1 || vaha == -1) throw new FormatException();
+                    if(vyska == 0 || vaha == 0) throw new FormatException();
                     BMI = spocitejBMI(vaha, vyska);
                     String[] klasifikaceHodnoty = getResources().getStringArray(R.array.klasifikaceHodnoty);
                     int klasifikace = 0;
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 //                vaha = Double.parseDouble(textVaha.getText().toString());
                 String vahaS = textVaha.getText().toString();
 
-                if(vahaS.matches("")) return -1;
+                if(vahaS.matches("")) return 0;
                 vaha = Double.parseDouble(vahaS);
 
             return vaha;
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             EditText textVaha = findViewById(R.id.editText_vyska);
 
             String vyskaS = textVaha.getText().toString();
-            if(vyskaS.matches("")) return -1;
+            if(vyskaS.matches("")) return 0;
             vyska = Double.parseDouble(vyskaS);
             return vyska;
         }
