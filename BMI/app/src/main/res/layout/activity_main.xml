@@ -87,6 +87,7 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
         android:text="Zobrazit klasifikace"
+        app:icon="@android:drawable/ic_dialog_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
