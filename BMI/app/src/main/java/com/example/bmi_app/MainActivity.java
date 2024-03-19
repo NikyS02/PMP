@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         public double getVyska() {
             double vyska;
             EditText textVaha = findViewById(R.id.editText_vyska);
-
             String vyskaS = textVaha.getText().toString();
             if(vyskaS.matches("")) return 0;
             vyska = Double.parseDouble(vyskaS);
@@ -91,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
     public double spocitejBMI(double vaha, double vyska) {
         double BMI;
         BMI = vaha / (vyska * vyska);
-
         return BMI;
     }
 
