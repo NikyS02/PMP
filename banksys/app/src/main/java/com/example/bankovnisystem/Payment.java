@@ -1,8 +1,9 @@
 package com.example.bankovnisystem;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Payment {
+public class Payment implements Serializable {
     // údaje: číslo účtu, kód banky (seznam název banky a kód banky), VS, SS, KS, zpráva pro příjemce, zpráve pro odesílatele,
     // funkce zkopírovat zprávu příjemce do zprávy pro odesítale
     // datum splatnosti
@@ -14,13 +15,25 @@ public class Payment {
     private int KS;
     private String messageForReciever;
     private String messageForSender;
-    private Date date;
+    private String date;
 
-    Payment(int accNumber, int bankCode, Date date){
+    Payment(
+            int accNumber,
+            int bankCode,
+            int VS,
+            int SS,
+            int KS,
+            String messageForReciever,
+            String messageForSender,
+            String date){
         setAccNumber(accNumber);
         setBankCode(bankCode);
+        setVS(VS);
+        setSS(SS);
+        setKS(KS);
+        setMessageForReciever(messageForReciever);
+        setMessageForSender(messageForSender);
         setDate(date);
-
     }
 
     public int getAccNumber() {
@@ -79,11 +92,11 @@ public class Payment {
         this.messageForSender = messageForSender;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    private void setDate(Date date) {
+    private void setDate(String date) {
         this.date = date;
     }
 }

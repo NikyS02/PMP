@@ -7,17 +7,23 @@
     tools:context=".PaymentActivity">
 
     <LinearLayout
-        android:layout_width="334dp"
-        android:layout_height="572dp"
+        android:layout_width="353dp"
+        android:layout_height="0dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/button_back_pay">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Číslo účtu:" />
 
         <EditText
             android:id="@+id/editTextNumber_AccNum"
@@ -27,11 +33,25 @@
             android:ems="10"
             android:inputType="number" />
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Kód banky:" />
+
         <Spinner
             android:id="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Variabilný symbol:" />
 
         <EditText
             android:id="@+id/editTextNumber2_VS"
@@ -41,6 +61,13 @@
             android:ems="10"
             android:inputType="number" />
 
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Specifický symbol:" />
+
         <EditText
             android:id="@+id/editTextNumber3_SS"
             android:layout_width="match_parent"
@@ -48,6 +75,13 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="number" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Konstantní symbol:" />
 
         <EditText
             android:id="@+id/editTextNumber4_KS"
@@ -57,14 +91,27 @@
             android:ems="10"
             android:inputType="number" />
 
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Zpráva pro příjemce:" />
+
         <EditText
             android:id="@+id/editTextText2_MessageForReciever"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="text"
-            android:text="Name" />
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Zpráva pro odesílatele:" />
 
         <EditText
             android:id="@+id/editTextText3_MessageForSender"
@@ -72,8 +119,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="text"
-            android:text="Name" />
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Datum splatnosti:" />
 
         <EditText
             android:id="@+id/editTextDate_DatumSplatnosti"
@@ -84,11 +137,22 @@
             android:inputType="date" />
 
         <Button
-            android:id="@+id/button_continue"
+            android:id="@+id/button_sendpayment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Pokračovat na přehled" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button_back_pay"
+        android:layout_width="87dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_weight="1"
+        android:text="Zpět"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@ public class BankAcc {
         login = "login";
         passwd = "1234";
         name = "Test Account";
-        balance = 0.0;
+        balance = 500.0;
         AccNumber = 111111;
     }
 
@@ -60,6 +60,6 @@ public class BankAcc {
     public void setData(BankAcc bankAcc, TextView name, TextView accNum, TextView balance) {
         name.setText(this.getName());
         accNum.setText(String.valueOf(this.getAccNumber()));
-        balance.setText("Zůstatek: "+this.getBalance().toString());
+        balance.setText("Zůstatek: "+this.getBalance().toString()+" Kč");
     }
 }

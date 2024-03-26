@@ -55,8 +55,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="413dp"
-        android:layout_height="89dp"
+        android:layout_width="384dp"
+        android:layout_height="61dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="28dp"
@@ -66,18 +66,19 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
+            android:id="@+id/button_QR"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="QR-kód" />
+
+        <Button
             android:id="@+id/button_newPayment"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Nová Platba" />
 
-        <Button
-            android:id="@+id/button_QR"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="QR-kód" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
