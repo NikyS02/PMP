@@ -14,6 +14,7 @@ public class PaymentSummaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_summary);
 
+
         Button buttonPay = findViewById(R.id.button_sendpayment);
         buttonPay.setOnClickListener(new View.OnClickListener() {
             @Override

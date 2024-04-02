@@ -19,6 +19,14 @@
         app:layout_constraintTop_toBottomOf="@+id/button_back_pay">
 
         <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Platba"
+            android:textSize="34sp" />
+
+        <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

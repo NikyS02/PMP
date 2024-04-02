@@ -34,7 +34,9 @@ public class PaymentActivity extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Payment paymentSummary = getPaymentSummary();
                 Intent swapToMain = new Intent(PaymentActivity.this, MainActivity.class);
+                swapToMain.putExtra("paymentSummary", paymentSummary);
                 PaymentActivity.this.startActivity(swapToMain);
             }
         });
