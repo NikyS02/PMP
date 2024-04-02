@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     //todo create design for payment activity
                     Intent pay = new Intent(MainActivity.this, PaymentActivity.class);
+                    pay.putExtra("bankAcc", bankAcc);
                     MainActivity.this.startActivity(pay);
                 }
             });

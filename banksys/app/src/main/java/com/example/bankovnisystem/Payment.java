@@ -10,6 +10,7 @@ public class Payment implements Serializable {
 
     private int accNumber;
     private int bankCode;
+    private double ammout;
     private int VS;
     private int SS;
     private int KS;
@@ -20,6 +21,7 @@ public class Payment implements Serializable {
     Payment(
             int accNumber,
             int bankCode,
+            double ammout,
             int VS,
             int SS,
             int KS,
@@ -28,6 +30,7 @@ public class Payment implements Serializable {
             String date){
         setAccNumber(accNumber);
         setBankCode(bankCode);
+        setAmmout(ammout);
         setVS(VS);
         setSS(SS);
         setKS(KS);
@@ -50,6 +53,14 @@ public class Payment implements Serializable {
 
     private void setBankCode(int bankCode) {
         this.bankCode = bankCode;
+    }
+
+    public double getAmmout() {
+        return ammout;
+    }
+
+    public void setAmmout(double ammount) {
+        this.ammout = ammout;
     }
 
     public int getVS() {
@@ -99,6 +110,8 @@ public class Payment implements Serializable {
     private void setDate(String date) {
         this.date = date;
     }
+
+
 }
 
 

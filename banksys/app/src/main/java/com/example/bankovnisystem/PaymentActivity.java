@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,14 +19,15 @@ public class PaymentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
 
         Button buttonContinue = findViewById(R.id.button_sendpayment);
         buttonContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent paymentInt = new Intent(PaymentActivity.this, PaymentSummaryActivity.class);
-
-                paymentInt.putExtra("payment", getPaymentSummary());
+                paymentInt.putExtra("bankAcc", bankAcc);
+                paymentInt.putExtra("paymentSummary", getPaymentSummary());
                 PaymentActivity.this.startActivity(paymentInt);
             }
         });
@@ -44,6 +46,7 @@ public class PaymentActivity extends AppCompatActivity {
     private Payment getPaymentSummary(){
         EditText accNumberET = findViewById(R.id.editTextNumber_AccNum);
         Spinner bankCodeSP = findViewById(R.id.spinner);
+        EditText ammout = findViewById(R.id.editText_ammount);
         EditText VSET = findViewById(R.id.editTextNumber2_VS);
         EditText SSET = findViewById(R.id.editTextNumber3_SS);
         EditText KSET = findViewById(R.id.editTextNumber4_KS);
@@ -55,6 +58,7 @@ public class PaymentActivity extends AppCompatActivity {
             return new Payment(
                 Integer.parseInt(accNumberET.getText().toString()),
                     Integer.parseInt(bankCodeSP.getItemAtPosition(bankCodeSP.getSelectedItemPosition()).toString()),
+                    Double.parseDouble(ammout.getText().toString()),
                     Integer.parseInt(VSET.getText().toString()),
                     Integer.parseInt(SSET.getText().toString()),
                     Integer.parseInt(KSET.getText().toString()),
@@ -63,6 +67,7 @@ public class PaymentActivity extends AppCompatActivity {
                     dateET.getText().toString()
             );
         } catch (Exception e) {
+            Toast.makeText(PaymentActivity.this, "Err", Toast.LENGTH_SHORT).show();
             return null;
         }
 

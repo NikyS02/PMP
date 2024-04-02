@@ -1,8 +1,11 @@
 package com.example.bankovnisystem;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class BankAcc {
+import java.io.Serializable;
+
+public class BankAcc implements Serializable {
     private String login;
     private String passwd;
     private String name;
@@ -61,5 +64,11 @@ public class BankAcc {
         name.setText(this.getName());
         accNum.setText(String.valueOf(this.getAccNumber()));
         balance.setText("Zůstatek: "+this.getBalance().toString()+" Kč");
+    }
+
+    protected void pay(Payment payment) {
+        if(this.balance < payment.getAmmout()) throw new RuntimeException();
+        this.balance = this.balance - payment.getAmmout();
+
     }
 }
