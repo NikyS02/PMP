@@ -12,16 +12,12 @@ import android.widget.Toast;
 import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
-
+    //todo need to send logged bool
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);d
         setContentView(R.layout.activity_main);
-
-        // disabled login
-        boolean loggedBool = true;
-        // todo enable login -> boolean loggedBool = false;
-
+        boolean loggedBool = false;
         Intent intent = getIntent();
 
         if(intent.hasExtra("loggedBool"))
@@ -30,10 +26,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(!loggedBool) {
-            startLoginActivity();
+            startLoginActivity(new BankAcc());
         } else {
-            BankAcc bankAcc = makeTestAcc();
-
+            BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
             TextView name = findViewById(R.id.TextView_name);
             TextView accNum = findViewById(R.id.TextView_accNum);
             TextView balance = findViewById(R.id.TextView_balance);
@@ -67,8 +62,9 @@ public class MainActivity extends AppCompatActivity {
         return bankAcc;
     }
 
-    private void startLoginActivity() {
+    private void startLoginActivity(BankAcc bankAcc) {
         Intent login = new Intent(MainActivity.this, LoginActivity.class);
+        login.putExtra("bankAcc", bankAcc);
         MainActivity.this.startActivity(login);
     }
 }

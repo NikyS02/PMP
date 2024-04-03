@@ -59,7 +59,7 @@ public class Payment implements Serializable {
         return ammout;
     }
 
-    public void setAmmout(double ammount) {
+    public void setAmmout(double ammout) {
         this.ammout = ammout;
     }
 

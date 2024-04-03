@@ -17,7 +17,6 @@ public class PaymentSummaryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_summary);
-        Intent paymentIntent = this.getIntent();
         BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
         Payment paymentSummary = (Payment) this.getIntent().getSerializableExtra("paymentSummary");
         setSummary(paymentSummary);
@@ -28,6 +27,7 @@ public class PaymentSummaryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent pay = new Intent(PaymentSummaryActivity.this, MainActivity.class);
                 bankAcc.pay(paymentSummary);
+                pay.putExtra("bankAcc", bankAcc);
                 PaymentSummaryActivity.this.startActivity(pay);
                 Toast.makeText(PaymentSummaryActivity.this,"Platba byla odeslána", Toast.LENGTH_SHORT).show();
             }

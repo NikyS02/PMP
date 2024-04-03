@@ -17,16 +17,17 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
         Button buttonLogin = findViewById(R.id.buttonLogin);
+        BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                authorize();
+                authorize(bankAcc);
             }
         });
     }
 
-    void authorize() {
+    void authorize(BankAcc bankAcc) {
         EditText EditLogin = findViewById(R.id.editTextTextPersonName);
         EditText EditPasswd = findViewById(R.id.editTextTextPassword);
 
@@ -34,14 +35,15 @@ public class LoginActivity extends AppCompatActivity {
         String passwd = EditPasswd.getText().toString();
 
         if(login.equals("login") && passwd.equals("1234")) {
-            loginUser(login);
+            loginUser(login, bankAcc);
         } else {
             Toast.makeText(LoginActivity.this, "Zadali jste špatné údaje", Toast.LENGTH_SHORT).show();
         }
     }
 
-    void loginUser(String login) {
+    void loginUser(String login, BankAcc bankAcc) {
         Intent loggedIntent = new Intent(this, MainActivity.class);
+        loggedIntent.putExtra("bankAcc", bankAcc);
         loggedIntent.putExtra("loggedBool", true);
         startActivity(loggedIntent);
     }
