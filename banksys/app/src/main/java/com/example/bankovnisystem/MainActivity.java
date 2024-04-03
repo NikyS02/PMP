@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     //todo need to send logged bool
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);d
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         boolean loggedBool = false;
         Intent intent = getIntent();
@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
             buttonPayment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //todo create design for payment activity
                     Intent pay = new Intent(MainActivity.this, PaymentActivity.class);
                     pay.putExtra("bankAcc", bankAcc);
+                    pay.putExtra()
                     MainActivity.this.startActivity(pay);
                 }
             });

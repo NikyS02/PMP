@@ -20,6 +20,7 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
+        boolean loggedBool = (boolean) this.getIntent().getBooleanExtra("loggedBool");
 
         Button buttonContinue = findViewById(R.id.button_sendpayment);
         buttonContinue.setOnClickListener(new View.OnClickListener() {
@@ -28,6 +29,7 @@ public class PaymentActivity extends AppCompatActivity {
                 Intent paymentInt = new Intent(PaymentActivity.this, PaymentSummaryActivity.class);
                 paymentInt.putExtra("bankAcc", bankAcc);
                 paymentInt.putExtra("paymentSummary", getPaymentSummary());
+                paymentInt.putExtra("loggedBool", loggedBool);
                 PaymentActivity.this.startActivity(paymentInt);
             }
         });
