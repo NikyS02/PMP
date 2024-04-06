@@ -17,16 +17,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DBHelper dbHelper = new DBHelper(MainActivity.this);
         boolean loggedBool = false;
         Intent intent = getIntent();
 
         if(intent.hasExtra("loggedBool"))
         {
-            loggedBool = getIntent().getExtras().getBoolean("loggedBool");
+            Toast.makeText(MainActivity.this, "has logged bool", Toast.LENGTH_SHORT).show();
+            loggedBool = intent.getExtras().getBoolean("loggedBool");
         }
 
         if(!loggedBool) {
-            startLoginActivity(new BankAcc());
+            Toast.makeText(MainActivity.this, "FUC", Toast.LENGTH_SHORT).show();
+            startLoginActivity(new BankAcc(), dbHelper);
         } else {
             BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
             TextView name = findViewById(R.id.TextView_name);
@@ -35,14 +38,14 @@ public class MainActivity extends AppCompatActivity {
 
             bankAcc.setData(bankAcc, name, accNum, balance);
 
-
             Button buttonPayment = findViewById(R.id.button_newPayment);
             buttonPayment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Boolean loggedBool = getIntent().getExtras().getBoolean("loggedBool");
                     Intent pay = new Intent(MainActivity.this, PaymentActivity.class);
                     pay.putExtra("bankAcc", bankAcc);
-                    pay.putExtra()
+                    pay.putExtra("loggedBool", loggedBool);
                     MainActivity.this.startActivity(pay);
                 }
             });
@@ -62,9 +65,10 @@ public class MainActivity extends AppCompatActivity {
         return bankAcc;
     }
 
-    private void startLoginActivity(BankAcc bankAcc) {
+    private void startLoginActivity(BankAcc bankAcc, DBHelper dbHelper) {
         Intent login = new Intent(MainActivity.this, LoginActivity.class);
         login.putExtra("bankAcc", bankAcc);
+        login.putExtra("dbHelper", (Serializable) dbHelper);
         MainActivity.this.startActivity(login);
     }
 }

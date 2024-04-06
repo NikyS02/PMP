@@ -6,18 +6,18 @@ import android.widget.Toast;
 import java.io.Serializable;
 
 public class BankAcc implements Serializable {
+    private final int accNumber;
     private String login;
     private String passwd;
     private String name;
     private Double balance;
-    private int AccNumber;
 
     BankAcc(){
+        accNumber = 111111;
         login = "login";
         passwd = "1234";
         name = "Test Account";
         balance = 500.0;
-        AccNumber = 111111;
     }
 
     public String getLogin() {
@@ -53,11 +53,11 @@ public class BankAcc implements Serializable {
     }
 
     public int getAccNumber() {
-        return AccNumber;
+        return accNumber;
     }
 
     private void setAccNumber(int accNumber) {
-        AccNumber = accNumber;
+        accNumber = accNumber;
     }
 
     public void setData(BankAcc bankAcc, TextView name, TextView accNum, TextView balance) {

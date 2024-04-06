@@ -20,6 +20,8 @@ public class PaymentSummaryActivity extends AppCompatActivity {
         BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
         Payment paymentSummary = (Payment) this.getIntent().getSerializableExtra("paymentSummary");
         setSummary(paymentSummary);
+        boolean loggedBool = (boolean) this.getIntent().getBooleanExtra("loggedBool", false);
+
 
         Button buttonPay = findViewById(R.id.button_sendpayment);
         buttonPay.setOnClickListener(new View.OnClickListener() {
@@ -28,6 +30,8 @@ public class PaymentSummaryActivity extends AppCompatActivity {
                 Intent pay = new Intent(PaymentSummaryActivity.this, MainActivity.class);
                 bankAcc.pay(paymentSummary);
                 pay.putExtra("bankAcc", bankAcc);
+                pay.putExtra("loggedBool", loggedBool);
+
                 PaymentSummaryActivity.this.startActivity(pay);
                 Toast.makeText(PaymentSummaryActivity.this,"Platba byla odeslána", Toast.LENGTH_SHORT).show();
             }
@@ -38,6 +42,8 @@ public class PaymentSummaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent swapToPay = new Intent(PaymentSummaryActivity.this, PaymentActivity.class);
+                swapToPay.putExtra("loggedBool", loggedBool);
+
                 PaymentSummaryActivity.this.startActivity(swapToPay);
             }
         });
@@ -57,7 +63,7 @@ public class PaymentSummaryActivity extends AppCompatActivity {
         try {
             accNumberTW.setText(new Integer(paymentSummary.getAccNumber()).toString());
             bankCodeTW.setText(new Integer(paymentSummary.getBankCode()).toString());
-            ammoutTW.setText(Double.toString(paymentSummary.getAmmout())); //todo ammout = 0
+            ammoutTW.setText(Double.toString(paymentSummary.getAmmout()));
             VSTW.setText(new Integer(paymentSummary.getVS()).toString());
             SSTW.setText(new Integer(paymentSummary.getSS()).toString());
             KSWT.setText(new Integer(paymentSummary.getKS()).toString());

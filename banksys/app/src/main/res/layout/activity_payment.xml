@@ -36,7 +36,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Číslo účtu"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="123" />
 
         <TableRow
             android:layout_width="match_parent"
@@ -66,7 +67,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Částka"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:text="69.0" />
 
         <EditText
             android:id="@+id/editTextNumber2_VS"
@@ -75,7 +77,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Variabilní symbol"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="12" />
 
         <EditText
             android:id="@+id/editTextNumber3_SS"
@@ -84,7 +87,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Specifický symbol"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="13" />
 
         <EditText
             android:id="@+id/editTextNumber4_KS"
@@ -93,7 +97,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Konstantní symbol"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="14" />
 
         <EditText
             android:id="@+id/editTextText2_MessageForReciever"
@@ -102,7 +107,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Zpráva pro příjemce"
-            android:inputType="text" />
+            android:inputType="text"
+            android:text="FUCK" />
 
         <EditText
             android:id="@+id/editTextText3_MessageForSender"
@@ -111,7 +117,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Zpráva pro odesílatele"
-            android:inputType="text" />
+            android:inputType="text"
+            android:text="AAAAAAAAAAAAAAAA" />
 
         <EditText
             android:id="@+id/editTextDate_DatumSplatnosti"
@@ -120,7 +127,8 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Datum splatnosti"
-            android:inputType="date" />
+            android:inputType="date"
+            android:text="06.10.2024" />
 
         <Button
             android:id="@+id/button_sendpayment"

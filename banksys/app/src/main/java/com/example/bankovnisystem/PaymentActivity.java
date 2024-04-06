@@ -20,7 +20,7 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
-        boolean loggedBool = (boolean) this.getIntent().getBooleanExtra("loggedBool");
+        boolean loggedBool = (boolean) this.getIntent().getBooleanExtra("loggedBool", false);
 
         Button buttonContinue = findViewById(R.id.button_sendpayment);
         buttonContinue.setOnClickListener(new View.OnClickListener() {
@@ -30,6 +30,7 @@ public class PaymentActivity extends AppCompatActivity {
                 paymentInt.putExtra("bankAcc", bankAcc);
                 paymentInt.putExtra("paymentSummary", getPaymentSummary());
                 paymentInt.putExtra("loggedBool", loggedBool);
+
                 PaymentActivity.this.startActivity(paymentInt);
             }
         });
@@ -40,7 +41,8 @@ public class PaymentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Payment paymentSummary = getPaymentSummary();
                 Intent swapToMain = new Intent(PaymentActivity.this, MainActivity.class);
-                swapToMain.putExtra("paymentSummary", paymentSummary);
+                swapToMain.putExtra("loggedBool", loggedBool);
+
                 PaymentActivity.this.startActivity(swapToMain);
             }
         });
