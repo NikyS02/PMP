@@ -18,17 +18,16 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Button buttonLogin = findViewById(R.id.buttonLogin);
         BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
-        DBHelper dbHelper = (DBHelper) this.getIntent().getSerializableExtra("dbHelper");
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                authorize(bankAcc, dbHelper);
+                authorize(bankAcc);
             }
         });
     }
 
-    void authorize(BankAcc bankAcc, DBHelper dbHelper) {
+    void authorize(BankAcc bankAcc) {
 
         EditText EditLogin = findViewById(R.id.editTextTextPersonName);
         EditText EditPasswd = findViewById(R.id.editTextTextPassword);

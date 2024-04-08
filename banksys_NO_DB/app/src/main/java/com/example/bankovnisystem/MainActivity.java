@@ -16,21 +16,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DBHelper dbHelper = new DBHelper(MainActivity.this);
         boolean loggedBool = false;
         Intent intent = getIntent();
 
         if(intent.hasExtra("loggedBool"))
         {
-            Toast.makeText(MainActivity.this, "has logged bool", Toast.LENGTH_SHORT).show();
             loggedBool = intent.getExtras().getBoolean("loggedBool");
         }
 
         if(!loggedBool) {
-            Toast.makeText(MainActivity.this, "FUC", Toast.LENGTH_SHORT).show();
-            //startLoginActivity(new BankAcc());
-            //todo ˇ heer breaks
-            startLoginActivity(new BankAcc(), dbHelper);
+            startLoginActivity(new BankAcc());
         } else {
             BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
             TextView name = findViewById(R.id.TextView_name);
@@ -66,13 +61,6 @@ public class MainActivity extends AppCompatActivity {
         return bankAcc;
     }
 
-    private void startLoginActivity(BankAcc bankAcc, DBHelper dbHelper) {
-        Intent login = new Intent(MainActivity.this, LoginActivity.class);
-        login.putExtra("bankAcc", bankAcc);
-        login.putExtra("dbHelper", (Serializable) dbHelper);
-        MainActivity.this.startActivity(login);
-    }
-//todo delete when DB works
     private void startLoginActivity(BankAcc bankAcc) {
         Intent login = new Intent(MainActivity.this, LoginActivity.class);
         login.putExtra("bankAcc", bankAcc);
