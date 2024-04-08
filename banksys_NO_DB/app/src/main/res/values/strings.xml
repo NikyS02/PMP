@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BankovniSystem</string>
+
+        <string-array name="spinnerItems">
+            <item>111111</item>
+            <item>22222</item>
+            <item>33333</item>
+            <item>4444</item>
+        </string-array>
+
+</resources>
