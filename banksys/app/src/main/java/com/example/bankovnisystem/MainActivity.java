@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DBHelper dbHelper = new DBHelper(this);
         boolean loggedBool = false;
         Intent intent = getIntent();
 
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         if(!loggedBool) {
             Toast.makeText(MainActivity.this, "FUC", Toast.LENGTH_SHORT).show();
-            startLoginActivity(new BankAcc());
+            //todo ˇ heer breaks
+            startLoginActivity(new BankAcc(), dbHelper);
         } else {
             BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
             TextView name = findViewById(R.id.TextView_name);
@@ -66,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
     private void startLoginActivity(BankAcc bankAcc) {
         Intent login = new Intent(MainActivity.this, LoginActivity.class);
         login.putExtra("bankAcc", bankAcc);
+        MainActivity.this.startActivity(login);
+    }
+
+    private void startLoginActivity(BankAcc bankAcc, DBHelper dbHelper) {
+        Intent login = new Intent(MainActivity.this, LoginActivity.class);
+        login.putExtra("bankAcc", bankAcc);
+        login.putExtra("dbHelper", (Serializable) dbHelper);
         MainActivity.this.startActivity(login);
     }
 }
