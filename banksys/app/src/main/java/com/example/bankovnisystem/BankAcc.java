@@ -6,19 +6,33 @@ import android.widget.Toast;
 import java.io.Serializable;
 
 public class BankAcc implements Serializable {
-    private final int accNumber;
+    private int id;
+    private int accNumber;
     private String login;
     private String passwd;
     private String name;
     private Double balance;
 
     BankAcc(){
+        id = 0;
         accNumber = 111111;
         login = "login";
         passwd = "1234";
         name = "Test Account";
         balance = 500.0;
     }
+
+    BankAcc(
+            int id, int accNumber, String login, String passwd, String name, Double balance
+    ){
+        this.id = id;
+        setAccNumber(accNumber);
+        setLogin(login);
+        setPasswd(passwd);
+        setName(name);
+        setBalance(balance);
+    }
+
 
     public String getLogin() {
         return login;

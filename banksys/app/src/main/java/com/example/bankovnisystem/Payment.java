@@ -7,7 +7,7 @@ public class Payment implements Serializable {
     // údaje: číslo účtu, kód banky (seznam název banky a kód banky), VS, SS, KS, zpráva pro příjemce, zpráve pro odesílatele,
     // funkce zkopírovat zprávu příjemce do zprávy pro odesítale
     // datum splatnosti
-
+    private int id;
     private int accNumber;
     private int bankCode;
     private double ammout;
@@ -19,6 +19,7 @@ public class Payment implements Serializable {
     private String date;
 
     Payment(
+            int id,
             int accNumber,
             int bankCode,
             double ammout,
@@ -28,6 +29,7 @@ public class Payment implements Serializable {
             String messageForReciever,
             String messageForSender,
             String date){
+        this.id = id;
         setAccNumber(accNumber);
         setBankCode(bankCode);
         setAmmout(ammout);

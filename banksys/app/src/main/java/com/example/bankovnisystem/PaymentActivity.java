@@ -60,6 +60,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         try {
             return new Payment(
+                    0,
                     Integer.parseInt(accNumberET.getText().toString()),
                     Integer.parseInt(bankCodeSP.getItemAtPosition(bankCodeSP.getSelectedItemPosition()).toString()),
                     Double.parseDouble(ammout.getText().toString()),

@@ -17,6 +17,7 @@ public class PaymentSummaryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_summary);
+        DBHelper dbHelper = new DBHelper(this);
         BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
         Payment paymentSummary = (Payment) this.getIntent().getSerializableExtra("paymentSummary");
         setSummary(paymentSummary);
@@ -28,7 +29,10 @@ public class PaymentSummaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent pay = new Intent(PaymentSummaryActivity.this, MainActivity.class);
+
                 bankAcc.pay(paymentSummary);
+                dbHelper.writePaymentIntoDB(paymentSummary);
+
                 pay.putExtra("bankAcc", bankAcc);
                 pay.putExtra("loggedBool", loggedBool);
 

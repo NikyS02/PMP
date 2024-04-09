@@ -17,18 +17,17 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
         Button buttonLogin = findViewById(R.id.buttonLogin);
-        BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
-        DBHelper dbHelper = (DBHelper) this.getIntent().getSerializableExtra("dbHelper");
+        DBHelper dbHelper = new DBHelper(this);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                authorize(bankAcc, dbHelper);
+                authorize(dbHelper);
             }
         });
     }
 
-    void authorize(BankAcc bankAcc, DBHelper dbHelper) {
+    protected void authorize(DBHelper dbHelper) {
 
         EditText EditLogin = findViewById(R.id.editTextTextPersonName);
         EditText EditPasswd = findViewById(R.id.editTextTextPassword);
@@ -36,14 +35,16 @@ public class LoginActivity extends AppCompatActivity {
         String login = EditLogin.getText().toString();
         String passwd = EditPasswd.getText().toString();
 
-        if(login.equals("login") && passwd.equals("1234")) {
-            loginUser(login, bankAcc);
-        } else {
+        BankAcc bankAcc = dbHelper.checkLogin(login, passwd);
+        if(bankAcc != null) {
+            loginUser(bankAcc);
+        }
+        else {
             Toast.makeText(LoginActivity.this, "Zadali jste špatné údaje", Toast.LENGTH_SHORT).show();
         }
     }
 
-    void loginUser(String login, BankAcc bankAcc) {
+    void loginUser(BankAcc bankAcc) {
         Intent loggedIntent = new Intent(this, MainActivity.class);
         loggedIntent.putExtra("bankAcc", bankAcc);
         loggedIntent.putExtra("loggedBool", true);
