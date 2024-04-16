@@ -69,4 +69,10 @@ public class MainActivity extends AppCompatActivity {
         login.putExtra("bankAcc", bankAcc);
         MainActivity.this.startActivity(login);
     }
+
+    private void setPaymentList() {
+        for(Payment payment : PaymentArrayList){
+
+        }
+    }
 }

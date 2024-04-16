@@ -98,6 +98,31 @@
         PaymentCursor.close();
         return PaymentArrayList;
     }
+//todo WHERE
+            public ArrayList<Payment> getPaymentsFromDB(BankAcc bankAcc) {
+                Cursor PaymentCursor = db.rawQuery("SELECT * FROM " + "Payment", null);
+
+                ArrayList<Payment> PaymentArrayList = new ArrayList<>();
+                if (PaymentCursor.moveToFirst()) {
+                    do {
+                        if (PaymentCursor.getInt(2) == bankAcc.getAccNumber()) {
+                            PaymentArrayList.add(new Payment(PaymentCursor.getInt(0),
+                                    PaymentCursor.getInt(1),
+                                    PaymentCursor.getInt(2),
+                                    PaymentCursor.getDouble(3),
+                                    PaymentCursor.getInt(4),
+                                    PaymentCursor.getInt(5),
+                                    PaymentCursor.getInt(6),
+                                    PaymentCursor.getString(7),
+                                    PaymentCursor.getString(8),
+                                    PaymentCursor.getString(9)
+                            ));
+                        }
+                    } while (PaymentCursor.moveToNext());
+                }
+                    PaymentCursor.close();
+                return PaymentArrayList;
+            }
 
 
     public void Close() {
