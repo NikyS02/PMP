@@ -1,6 +1,8 @@
 package com.example.bankovnisystem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         DBHelper dbHelper = new DBHelper(this);
         boolean loggedBool = false;
         Intent intent = getIntent();
+
 
         if(intent.hasExtra("loggedBool"))
         {
@@ -32,8 +35,13 @@ public class MainActivity extends AppCompatActivity {
             TextView name = findViewById(R.id.TextView_name);
             TextView accNum = findViewById(R.id.TextView_accNum);
             TextView balance = findViewById(R.id.TextView_balance);
+
+
             //todo view
-            dbHelper.getPayments(bankAcc);
+            ArrayList<Payment> paymentArrayList = dbHelper.getPayments(bankAcc);
+            CustAdapter custAdapter = createRecycleView(paymentArrayList);
+            //custAdapter.notifyDataStateChanged();
+
 
             bankAcc.setData(bankAcc, name, accNum, balance);
 
@@ -70,9 +78,14 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.startActivity(login);
     }
 
-    private void setPaymentList() {
-        for(Payment payment : PaymentArrayList){
+    private CustAdapter createRecycleView(ArrayList<Payment> paymentArrayList) {
+        CustAdapter custAdapter = new CustAdapter(paymentArrayList);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        RecyclerView recyclerView = findViewById(R.id.recycle_view);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setAdapter(custAdapter);
 
-        }
+        return custAdapter;
     }
 }

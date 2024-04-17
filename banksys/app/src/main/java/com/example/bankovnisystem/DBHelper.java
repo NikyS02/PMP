@@ -98,9 +98,10 @@
         PaymentCursor.close();
         return PaymentArrayList;
     }
-//todo WHERE
+
             public ArrayList<Payment> getPaymentsFromDB(BankAcc bankAcc) {
-                Cursor PaymentCursor = db.rawQuery("SELECT * FROM " + "Payment", null);
+                String[] selectionArgs = { Integer.toString(bankAcc.getAccNumber()) };
+                Cursor PaymentCursor = db.rawQuery("SELECT * FROM Payment WHERE accNum = ? ORDER BY Date DESC",  selectionArgs);
 
                 ArrayList<Payment> PaymentArrayList = new ArrayList<>();
                 if (PaymentCursor.moveToFirst()) {
