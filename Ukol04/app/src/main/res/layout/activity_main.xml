@@ -25,7 +25,6 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="5dp"
-            android:onClick="closeApp"
             android:text="@string/buttonExit"
             tools:ignore="RtlHardcoded" />
 
@@ -44,11 +43,9 @@
         android:layout_marginBottom="15dp"
         android:background="@null"
         android:contentDescription="@string/buttonNew"
-        android:onClick="openActivity2"
         android:scaleType="fitCenter"
         android:src="@drawable/add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="UsingOnClickInXml" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

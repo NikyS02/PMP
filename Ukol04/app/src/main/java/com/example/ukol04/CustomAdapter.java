@@ -3,7 +3,6 @@ package com.example.ukol04;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,6 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CustomAdapter extends ArrayAdapter<String> {
     private final Context context;

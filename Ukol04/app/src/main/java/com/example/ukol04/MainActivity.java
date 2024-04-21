@@ -7,12 +7,19 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
     DatabaseHelper db;
+
+    Button btnExit;
+    ImageButton btnNew;
+    ListView seznam;
+    String[] values;
+    CustomAdapter adapter;
 
     @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
@@ -22,10 +29,25 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         db = new DatabaseHelper(this);
-        ListView seznam = findViewById(R.id.seznam);
+        seznam = findViewById(R.id.seznam);
 
-        String[] values = loadData();
-        CustomAdapter adapter = new CustomAdapter(this, values);
+        values = loadData();
+        adapter = new CustomAdapter(this, values);
+        seznam.setAdapter(adapter);
+
+        btnExit = findViewById(R.id.buttonExit);
+        btnNew = findViewById(R.id.buttonNew);
+
+        btnExit.setOnClickListener(v -> closeApp());
+        btnNew.setOnClickListener(v -> openActivity2());
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        values = loadData();
+        adapter = new CustomAdapter(this, values);
         seznam.setAdapter(adapter);
 
     }
@@ -52,13 +74,13 @@ public class MainActivity extends AppCompatActivity {
         return data;
     }
 
-    public void openActivity2(View view) {
-        finish();
-        startActivity(new Intent(MainActivity.this, MainActivity2.class));
+    public void openActivity2() {
+        Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
-    public void closeApp(View view) {
+    public void closeApp() {
         finish();
-        System.exit(0);
     }
 }

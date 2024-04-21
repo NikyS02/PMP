@@ -3,4 +3,17 @@
     <string name="buttonExit">Ukončit</string>
     <string name="buttonNew">+</string>
     <string name="buttonBack">Zpět</string>
+    <string name="nazevHry">Název hry</string>
+    <string name="zanrHry">Žánr hry</string>
+    <string name="odehranoHodin">Odehráno hodin</string>
+    <string name="_0">0</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
+    <string name="dohrano">Dohráno</string>
+    <string name="postup">Postup</string>
+    <string name="hodnoceni">Hodnocení:</string>
+    <string name="hodnoceni10">😞</string>
+    <string name="ulozit">Uložit</string>
+    <string name="zrusit">Zrušit</string>
+    <string name="smazat">Smazat</string>
 </resources>

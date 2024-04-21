@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -30,7 +29,7 @@ import java.util.Arrays;
 public class MainActivity2 extends AppCompatActivity {
 
     DatabaseHelper db;
-    Button btnSave, btnCancel, btnDelete;
+    Button btnSave, btnCancel, btnDelete, btnBack;
     ImageButton btnPlusOdehrano, btnPlusPostup, btnMinusOdehrano, btnMinusPostup;
     EditText editNazev, editOdehrano, editPostup;
     Spinner spinnerZanr;
@@ -53,6 +52,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         db = new DatabaseHelper(this);
 
+        btnBack = findViewById(R.id.buttonBack);
         btnSave = findViewById(R.id.buttonSave);
         btnPlusOdehrano = findViewById(R.id.buttonPlusOdehrano);
         btnPlusPostup = findViewById(R.id.buttonPlusPostup);
@@ -86,7 +86,7 @@ public class MainActivity2 extends AppCompatActivity {
         } else {
             hra = db.getGameById(Integer.parseInt(id));
             editNazev.setText(hra.getNazev());
-            int position = new ArrayList<String>(Arrays.asList(zanryHer)).indexOf(hra.getZanr());
+            int position = new ArrayList<>(Arrays.asList(zanryHer)).indexOf(hra.getZanr());
             if (position != -1) spinnerZanr.setSelection(position);
             editOdehrano.setText(String.valueOf(hra.getOdehrano()));
             checkBoxDohranoEdit.setChecked(hra.isDohrano());
@@ -114,10 +114,8 @@ public class MainActivity2 extends AppCompatActivity {
                 }
             } else {
                 if (!TextUtils.isEmpty(editNazev.getText())) {
-                    int ok = db.updateGame(Integer.parseInt(id), new Hra(0, nazev, zanr, dohrano, odehrano, postup, hodnoceni));
-                    if (ok == 0)
-                        Toast.makeText(MainActivity2.this, "Je potřeba zadat název, který ještě není v databázi", Toast.LENGTH_LONG).show();
-                    else openMainActivity();
+                    db.updateGame(Integer.parseInt(id), new Hra(0, nazev, zanr, dohrano, odehrano, postup, hodnoceni));
+                    openMainActivity();
                 } else {
                     Toast.makeText(MainActivity2.this, "Je potřeba vyplnit název hry", Toast.LENGTH_LONG).show();
                 }
@@ -135,6 +133,9 @@ public class MainActivity2 extends AppCompatActivity {
 
             message_dialog_yes_no(this, "Smazat záznam?", yesListener);
         });
+
+        btnCancel.setOnClickListener(v -> openMainActivity());
+        btnBack.setOnClickListener(v -> openMainActivity());
 
         btnPlusOdehrano.setOnClickListener(v -> {
             if (!TextUtils.isEmpty(editOdehrano.getText())) {
@@ -230,13 +231,7 @@ public class MainActivity2 extends AppCompatActivity {
         else if (progress <= 100) hodnoceniEmoji.setText("\uD83E\uDD73");
     }
 
-    public void openMainActivity(View view) {
-        finish();
-        startActivity(new Intent(MainActivity2.this, MainActivity.class));
-    }
-
     public void openMainActivity() {
         finish();
-        startActivity(new Intent(MainActivity2.this, MainActivity.class));
     }
 }

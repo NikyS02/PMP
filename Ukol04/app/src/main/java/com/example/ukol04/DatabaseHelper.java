@@ -3,14 +3,12 @@ package com.example.ukol04;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "mydatabase.db";
+    private static final String DATABASE_NAME = "ukol4database.db";
     private static final int DATABASE_VERSION = 1;
 
     public static final String TABLE_NAME = "games";
@@ -22,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_POSTUP = "postup";
     public static final String COLUMN_HODNOCENI = "hodnoceni";
 
-    private static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_NAZEV + " TEXT UNIQUE, " + COLUMN_ZANR + " TEXT, " + COLUMN_DOHRANO + " TEXT, " + COLUMN_ODEHRANO + " INTEGER, " + COLUMN_POSTUP + " INTEGER, " + COLUMN_HODNOCENI + " INTEGER);";
+    private static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_NAZEV + " TEXT, " + COLUMN_ZANR + " TEXT, " + COLUMN_DOHRANO + " TEXT, " + COLUMN_ODEHRANO + " INTEGER, " + COLUMN_POSTUP + " INTEGER, " + COLUMN_HODNOCENI + " INTEGER);";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -55,12 +53,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int updateGame(long gameId, Hra hra) {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        if (gameNameExists(db, hra.getNazev())) {
-            db.close();
-            return 0;
-        }
-
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAZEV, hra.getNazev());
         values.put(COLUMN_ZANR, hra.getZanr());
@@ -71,13 +63,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int rowsAffected = db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(gameId)});
         db.close();
         return rowsAffected;
-    }
-
-    private boolean gameNameExists(SQLiteDatabase db, String gameName) {
-        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE " + COLUMN_NAZEV + " = ?", new String[]{gameName});
-        boolean exists = cursor.moveToFirst() && cursor.getInt(0) > 0;
-        cursor.close();
-        return exists;
     }
 
     public int deleteGame(long gameId) {

@@ -23,9 +23,8 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="5dp"
-            android:onClick="openMainActivity"
             android:text="@string/buttonBack"
-            tools:ignore="RtlHardcoded,UsingOnClickInXml" />
+            tools:ignore="RtlHardcoded" />
 
         <EditText
             android:id="@+id/editNazev"
@@ -34,8 +33,9 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
+            android:autofillHints=""
             android:ems="10"
-            android:hint="Název hry"
+            android:hint="@string/nazevHry"
             android:inputType="text"
             android:text="" />
 
@@ -46,12 +46,12 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
-            android:text="Žánr hry" />
+            android:text="@string/zanrHry" />
 
         <Spinner
             android:id="@+id/spinnerZanr"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp" />
 
@@ -62,7 +62,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
-            android:text="Odehráno hodin" />
+            android:text="@string/odehranoHodin" />
 
         <TableLayout
             android:layout_width="wrap_content"
@@ -72,16 +72,18 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                tools:ignore="UselessParent">
 
                 <EditText
                     android:id="@+id/editOdehrano"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:autofillHints=""
                     android:ems="10"
-                    android:hint="0"
+                    android:hint="@string/_0"
                     android:inputType="number"
-                    android:text="0" />
+                    android:text="@string/_0" />
 
                 <ImageButton
                     android:id="@+id/buttonPlusOdehrano"
@@ -89,7 +91,7 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="35dp"
                     android:background="@null"
-                    android:contentDescription="+"
+                    android:contentDescription="@string/plus"
                     android:scaleType="fitCenter"
                     android:src="@drawable/add_2" />
 
@@ -99,7 +101,7 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="35dp"
                     android:background="@null"
-                    android:contentDescription="-"
+                    android:contentDescription="@string/minus"
                     android:scaleType="fitCenter"
                     android:src="@drawable/remove_2" />
             </TableRow>
@@ -113,7 +115,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
-            android:text="Dohráno" />
+            android:text="@string/dohrano" />
 
         <TextView
             android:id="@+id/textPostup"
@@ -122,7 +124,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
-            android:text="Postup" />
+            android:text="@string/postup" />
 
         <TableLayout
             android:layout_width="wrap_content"
@@ -132,17 +134,19 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                tools:ignore="UselessParent">
 
                 <EditText
                     android:id="@+id/editPostup"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:autofillHints=""
                     android:ems="10"
                     android:enabled="false"
-                    android:hint="0"
+                    android:hint="@string/_0"
                     android:inputType="number"
-                    android:text="0" />
+                    android:text="@string/_0" />
 
                 <ImageButton
                     android:id="@+id/buttonPlusPostup"
@@ -150,7 +154,7 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="35dp"
                     android:background="@null"
-                    android:contentDescription="+"
+                    android:contentDescription="@string/plus"
                     android:scaleType="fitCenter"
                     android:src="@drawable/add_2" />
 
@@ -160,7 +164,7 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="35dp"
                     android:background="@null"
-                    android:contentDescription="-"
+                    android:contentDescription="@string/minus"
                     android:scaleType="fitCenter"
                     android:src="@drawable/remove_2" />
             </TableRow>
@@ -182,7 +186,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                tools:ignore="UselessParent">
 
                 <TextView
                     android:id="@+id/textHodnoceni"
@@ -191,7 +196,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="15dp"
-                    android:text="Hodnocení:" />
+                    android:text="@string/hodnoceni" />
 
                 <TextView
                     android:id="@+id/hodnoceniEmoji"
@@ -200,7 +205,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="15dp"
-                    android:text="😞"
+                    android:text="@string/hodnoceni10"
                     android:textSize="30sp" />
             </TableRow>
         </TableLayout>
@@ -231,36 +236,38 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            tools:ignore="UselessParent">
 
             <Button
                 android:id="@+id/buttonSave"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
-                android:text="Uložit" />
+                android:text="@string/ulozit" />
 
             <Button
                 android:id="@+id/buttonCancel"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
-                android:onClick="openMainActivity"
-                android:text="Zrušit"
-                tools:ignore="UsingOnClickInXml" />
+                android:text="@string/zrusit" />
 
             <Button
                 android:id="@+id/buttonDelete"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
-                android:text="Smazat" />
+                android:text="@string/smazat" />
         </TableRow>
     </TableLayout>
 
