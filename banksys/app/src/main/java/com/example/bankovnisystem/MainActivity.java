@@ -6,19 +6,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private CustAdapter mAdapter;
+    private DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DBHelper dbHelper = new DBHelper(this);
+        dbHelper = new DBHelper(this);
         boolean loggedBool = false;
         Intent intent = getIntent();
 
@@ -37,11 +42,21 @@ public class MainActivity extends AppCompatActivity {
             TextView balance = findViewById(R.id.TextView_balance);
 
 
-            //todo view
-            ArrayList<Payment> paymentArrayList = dbHelper.getPayments(bankAcc);
-            CustAdapter custAdapter = createRecycleView(paymentArrayList);
-            //custAdapter.notifyDataStateChanged();
+            //todo view doesnt show up on main activity (but hey it doesnt crash the app anymore :D)
+            ArrayList<Payment> mDataList;
+            if(mAdapter == null) {
+                mDataList = dbHelper.getPaymentsFromDB(bankAcc);
+                RecyclerView mRecyclerView = findViewById(R.id.recycle_view);
 
+                // if (mDataList != null && !mDataList.isEmpty()) {
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+                mAdapter = new CustAdapter(mDataList);
+                mRecyclerView.setAdapter(mAdapter);
+                //}
+            } else {
+                mDataList = dbHelper.getPaymentsFromDB(bankAcc);
+                mAdapter.updateDataList(mDataList);
+            }
 
             bankAcc.setData(bankAcc, name, accNum, balance);
 
@@ -67,25 +82,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+//    protected void onResume() {
+//        super.onResume();
+//        BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
+//
+//        ArrayList<Payment> mDataList;
+//        mDataList = dbHelper.getPaymentsFromDB(bankAcc);
+//        RecyclerView mRecyclerView = findViewById(R.id.recycle_view);
+//
+//        // if (mDataList != null && !mDataList.isEmpty()) {
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        mAdapter = new CustAdapter(mDataList);
+//        mRecyclerView.setAdapter(mAdapter);
+//        mDataList = dbHelper.getPaymentsFromDB(bankAcc);
+//        mAdapter.updateDataList(mDataList);
+//    }
+
     private void startLoginActivity() {
         Intent login = new Intent(MainActivity.this, LoginActivity.class);
         MainActivity.this.startActivity(login);
     }
 
-    private void startLoginActivity(BankAcc bankAcc) {
-        Intent login = new Intent(MainActivity.this, LoginActivity.class);
-        login.putExtra("bankAcc", bankAcc);
-        MainActivity.this.startActivity(login);
-    }
-
-    private CustAdapter createRecycleView(ArrayList<Payment> paymentArrayList) {
-        CustAdapter custAdapter = new CustAdapter(paymentArrayList);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        RecyclerView recyclerView = findViewById(R.id.recycle_view);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
-        recyclerView.setAdapter(custAdapter);
-
-        return custAdapter;
-    }
 }
