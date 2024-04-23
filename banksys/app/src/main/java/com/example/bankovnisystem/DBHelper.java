@@ -6,6 +6,7 @@
         import android.database.sqlite.SQLiteDatabase;
         import android.database.sqlite.SQLiteOpenHelper;
         import android.util.Log;
+        import android.widget.Toast;
 
         import androidx.annotation.Nullable;
 
@@ -78,7 +79,7 @@
         Cursor PaymentCursor = db.rawQuery("SELECT * FROM " + "Payment", null);
 
         ArrayList<Payment> PaymentArrayList = new ArrayList<>();
-        if (PaymentCursor.moveToFirst()) {
+        if (PaymentCursor != null && PaymentCursor.moveToFirst()) {
             do {
                 if (PaymentCursor.getInt(2) == bankAcc.getAccNumber()) {
                     PaymentArrayList.add(new Payment(PaymentCursor.getInt(0),
@@ -95,38 +96,54 @@
                 }
             } while (PaymentCursor.moveToNext());
         }
-        PaymentCursor.close();
+        if (PaymentCursor != null) {
+            PaymentCursor.close();
+        }
+        //PaymentCursor.close();
         return PaymentArrayList;
     }
 
-            public ArrayList<Payment> getPaymentsFromDB(BankAcc bankAcc) {
-                String[] selectionArgs = { Integer.toString(bankAcc.getAccNumber()) };
-                Cursor PaymentCursor = db.rawQuery("SELECT * FROM Payment WHERE accNum = ? ORDER BY Date DESC",  selectionArgs);
-
-                ArrayList<Payment> PaymentArrayList = new ArrayList<>();
-                if (PaymentCursor.moveToFirst()) {
-                    do {
-                        if (PaymentCursor.getInt(2) == bankAcc.getAccNumber()) {
-                            PaymentArrayList.add(new Payment(PaymentCursor.getInt(0),
-                                    PaymentCursor.getInt(1),
-                                    PaymentCursor.getInt(2),
-                                    PaymentCursor.getDouble(3),
-                                    PaymentCursor.getInt(4),
-                                    PaymentCursor.getInt(5),
-                                    PaymentCursor.getInt(6),
-                                    PaymentCursor.getString(7),
-                                    PaymentCursor.getString(8),
-                                    PaymentCursor.getString(9)
-                            ));
-                        }
-                    } while (PaymentCursor.moveToNext());
-                }
-                    PaymentCursor.close();
-                return PaymentArrayList;
+            public void Close() {
+                this.db.close();
             }
+            
+            public ArrayList<Payment> getPaymentsFromDB(BankAcc bankAcc) {
+                String[] selectionArgs = {String.valueOf(bankAcc.getAccNumber())};
+                Cursor PaymentCursor = null;
+                try {
+                    PaymentCursor = db.rawQuery("SELECT * FROM Payment WHERE AccNumber = ? ORDER BY Date DESC", selectionArgs);
+
+                    ArrayList<Payment> PaymentArrayList = new ArrayList<>();
+                    if (PaymentCursor.moveToFirst()) {
+                        do {
+                            if (PaymentCursor.getInt(2) == bankAcc.getAccNumber()) {
+                                PaymentArrayList.add(new Payment(PaymentCursor.getInt(0),
+                                        PaymentCursor.getInt(1),
+                                        PaymentCursor.getInt(2),
+                                        PaymentCursor.getDouble(3),
+                                        PaymentCursor.getInt(4),
+                                        PaymentCursor.getInt(5),
+                                        PaymentCursor.getInt(6),
+                                        PaymentCursor.getString(7),
+                                        PaymentCursor.getString(8),
+                                        PaymentCursor.getString(9)
+                                ));
+                            }
+                        } while (PaymentCursor.moveToNext());
+                    }
+
+                    PaymentCursor.close();
+                    return PaymentArrayList;
+                } catch (Exception e) {
+                    Log.e("DBHelper", "Error executing raw query: " + e.getMessage());
+                    return null;
+                } finally {
+                    if (PaymentCursor != null) {
+                        PaymentCursor.close();
+                    }
+                    close();
+                }
 
 
-    public void Close() {
-        this.db.close();
-    }
+            }
 }
