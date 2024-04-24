@@ -1,6 +1,7 @@
 package com.example.bankovnisystem;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CustAdapter extends RecyclerView.Adapter<CustAdapter.ViewHolder> {
     private ArrayList<Payment> mDataList;
+
         public static class ViewHolder extends RecyclerView.ViewHolder {
-            private final TextView textView;
+            public TextView textView;
 
             public ViewHolder(View itemView) {
                 super(itemView);
-                // Define click listener for the ViewHolder's View
                 textView = itemView.findViewById(R.id.textView);
             }
 
@@ -32,17 +32,20 @@ public class CustAdapter extends RecyclerView.Adapter<CustAdapter.ViewHolder> {
             mDataList = paymentList;
         }
 
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-            View view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.text_row_item, viewGroup, false);
-            return new ViewHolder(view);
-        }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Log.d("CustAdapter", "onCreateViewHolder called");
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.text_row_item, parent, false);
+        return new ViewHolder(view);
+    }
 
         @SuppressLint("SetTextI18n")
         @Override
         public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+            Log.d("CustAdapter", "onBindViewHolder called for position: " + position);
             Payment data = mDataList.get(position);
             viewHolder.textView.setText(Double.toString(data.getAmmout()));
         }
@@ -52,11 +55,6 @@ public class CustAdapter extends RecyclerView.Adapter<CustAdapter.ViewHolder> {
             return mDataList.size();
         }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void updateDataList(ArrayList<Payment> newDataList) {
-        mDataList = newDataList;
-        notifyDataSetChanged();
-    }
     }
 
 

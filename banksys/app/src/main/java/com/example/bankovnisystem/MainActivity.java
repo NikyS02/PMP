@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,11 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private CustAdapter mAdapter;
     private DBHelper dbHelper;
+    private BankAcc bankAcc;
+    private ArrayList<Payment> mDataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,26 +41,14 @@ public class MainActivity extends AppCompatActivity {
             startLoginActivity();
         } else {
             BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
+            this.bankAcc = bankAcc;
             TextView name = findViewById(R.id.TextView_name);
             TextView accNum = findViewById(R.id.TextView_accNum);
             TextView balance = findViewById(R.id.TextView_balance);
 
 
             //todo view doesnt show up on main activity (but hey it doesnt crash the app anymore :D)
-            ArrayList<Payment> mDataList;
-            if(mAdapter == null) {
-                mDataList = dbHelper.getPaymentsFromDB(bankAcc);
-                RecyclerView mRecyclerView = findViewById(R.id.recycle_view);
-
-                // if (mDataList != null && !mDataList.isEmpty()) {
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-                mAdapter = new CustAdapter(mDataList);
-                mRecyclerView.setAdapter(mAdapter);
-                //}
-            } else {
-                mDataList = dbHelper.getPaymentsFromDB(bankAcc);
-                mAdapter.updateDataList(mDataList);
-            }
+           createRecycle();
 
             bankAcc.setData(bankAcc, name, accNum, balance);
 
@@ -82,25 +74,49 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    protected void onResume() {
-//        super.onResume();
-//        BankAcc bankAcc = (BankAcc) this.getIntent().getSerializableExtra("bankAcc");
-//
-//        ArrayList<Payment> mDataList;
-//        mDataList = dbHelper.getPaymentsFromDB(bankAcc);
-//        RecyclerView mRecyclerView = findViewById(R.id.recycle_view);
-//
-//        // if (mDataList != null && !mDataList.isEmpty()) {
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        mAdapter = new CustAdapter(mDataList);
-//        mRecyclerView.setAdapter(mAdapter);
-//        mDataList = dbHelper.getPaymentsFromDB(bankAcc);
-//        mAdapter.updateDataList(mDataList);
-//    }
+    protected void onResume() {
+        super.onResume();
+//        createRecycle();
+        updateData();
+    }
 
     private void startLoginActivity() {
         Intent login = new Intent(MainActivity.this, LoginActivity.class);
         MainActivity.this.startActivity(login);
     }
+
+    private void createRecycle() {
+        ArrayList<Payment> mDataList;
+
+        if(mAdapter == null) {
+            RecyclerView mRecyclerView = findViewById(R.id.recycle_view);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+            //mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            mRecyclerView.setLayoutManager(layoutManager);
+
+            mDataList = dbHelper.getPaymentsFromDB(bankAcc);
+            Log.d("MainActivity", "Data list size: " + mDataList.size());
+            mAdapter = new CustAdapter(mDataList);
+
+            mRecyclerView.setAdapter(mAdapter);
+            //updateData();
+        }
+//        } else {
+//            Toast.makeText(MainActivity.this, "createRycycle - adapter null", Toast.LENGTH_SHORT).show();
+//            mDataList = dbHelper.getPaymentsFromDB(bankAcc);
+//            mAdapter.updateDataList(mDataList);
+//        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void updateData() {
+        if(bankAcc != null) {
+            mDataList = dbHelper.getPaymentsFromDB(bankAcc);
+//            ArrayList<Payment> newData = dbHelper.getPaymentsFromDB(bankAcc);
+//            mDataList.clear(); // Clear the existing data
+//            mDataList.addAll(newData); // Add the new data
+            mAdapter.notifyDataSetChanged(); // Notify the adapter that the data has changed
+        }
+        }
 
 }
