@@ -28,7 +28,7 @@ public class PaymentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent paymentInt = new Intent(PaymentActivity.this, PaymentSummaryActivity.class);
                 paymentInt.putExtra("bankAcc", bankAcc);
-                paymentInt.putExtra("paymentSummary", getPaymentSummary());
+                paymentInt.putExtra("paymentSummary", getPaymentSummary(bankAcc));
                 paymentInt.putExtra("loggedBool", loggedBool);
 
                 PaymentActivity.this.startActivity(paymentInt);
@@ -39,7 +39,7 @@ public class PaymentActivity extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Payment paymentSummary = getPaymentSummary();
+                Payment paymentSummary = getPaymentSummary(bankAcc);
                 Intent swapToMain = new Intent(PaymentActivity.this, MainActivity.class);
                 swapToMain.putExtra("loggedBool", loggedBool);
 
@@ -47,7 +47,7 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
     }
-    private Payment getPaymentSummary(){
+    private Payment getPaymentSummary(BankAcc bankAcc){
         EditText accNumberET = findViewById(R.id.editTextNumber_AccNum);
         Spinner bankCodeSP = findViewById(R.id.spinner);
         EditText ammout = findViewById(R.id.editText_ammount);
@@ -69,7 +69,9 @@ public class PaymentActivity extends AppCompatActivity {
                     Integer.parseInt(KSET.getText().toString()),
                     messageForRecieverET.getText().toString(),
                     messageForSenderET.getText().toString(),
-                    dateET.getText().toString()
+                    dateET.getText().toString(),
+                    bankAcc.getAccNumber(),
+                    6942
             );
         } catch (Exception e) {
             Toast.makeText(PaymentActivity.this, "Err", Toast.LENGTH_SHORT).show();

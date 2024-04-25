@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,10 +49,37 @@ public class MainActivity extends AppCompatActivity {
             TextView accNum = findViewById(R.id.TextView_accNum);
             TextView balance = findViewById(R.id.TextView_balance);
 
+            RadioButton showAll = findViewById(R.id.radioButton_all);
+            RadioButton showIn = findViewById(R.id.radioButton_in);
+            RadioButton showOut = findViewById(R.id.radioButton_out);
+            showAll.setChecked(true);
+            showIn.setChecked(false);
+            showOut.setChecked(false);
 
-            //todo view doesnt show up on main activity (but hey it doesnt crash the app anymore :D)
-           createRecycle();
+            RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+            {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    String filter;
+                    switch(checkedId) {
+                        case R.id.radioButton_all:
+                          filter = "all";
+                            break;
+                        case R.id.radioButton_in:
+                            filter = "in";
+                            break;
+                        case R.id.radioButton_out:
+                            filter = "out";
+                            break;
+                        default:
+                            filter = "all";
+                    }
+                    updateData(filter);
+                }
+            });
 
+            createRecycle();
             bankAcc.setData(bankAcc, name, accNum, balance);
 
             Button buttonPayment = findViewById(R.id.button_newPayment);
@@ -61,6 +91,24 @@ public class MainActivity extends AppCompatActivity {
                     pay.putExtra("bankAcc", bankAcc);
                     pay.putExtra("loggedBool", loggedBool);
                     MainActivity.this.startActivity(pay);
+                }
+            });
+
+            Button buttonLogOut = findViewById(R.id.floatingActionButton);
+            buttonLogOut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startLoginActivity();
+                }
+            });
+
+            Button buttonHistory = findViewById(R.id.button_filterPayments);
+            buttonHistory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent history = new Intent(MainActivity.this, PaymentHistoryActivity.class);
+                    history.putExtra("bankAcc", bankAcc);
+                    MainActivity.this.startActivity(history);
                 }
             });
 
@@ -76,8 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-//        createRecycle();
-        updateData();
+        updateData("all");
     }
 
     private void startLoginActivity() {
@@ -91,32 +138,23 @@ public class MainActivity extends AppCompatActivity {
         if(mAdapter == null) {
             RecyclerView mRecyclerView = findViewById(R.id.recycle_view);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-            //mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             mRecyclerView.setLayoutManager(layoutManager);
 
             mDataList = dbHelper.getPaymentsFromDB(bankAcc);
-            Log.d("MainActivity", "Data list size: " + mDataList.size());
-            mAdapter = new CustAdapter(mDataList);
+            mAdapter = new CustAdapter(mDataList, bankAcc);
 
             mRecyclerView.setAdapter(mAdapter);
-            //updateData();
         }
-//        } else {
-//            Toast.makeText(MainActivity.this, "createRycycle - adapter null", Toast.LENGTH_SHORT).show();
-//            mDataList = dbHelper.getPaymentsFromDB(bankAcc);
-//            mAdapter.updateDataList(mDataList);
-//        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void updateData() {
+    private void updateData(String filter) {
         if(bankAcc != null) {
             mDataList = dbHelper.getPaymentsFromDB(bankAcc);
-//            ArrayList<Payment> newData = dbHelper.getPaymentsFromDB(bankAcc);
-//            mDataList.clear(); // Clear the existing data
-//            mDataList.addAll(newData); // Add the new data
-            mAdapter.notifyDataSetChanged(); // Notify the adapter that the data has changed
+            mAdapter.notifyDataSetChangedWithFilter(filter, mDataList);
         }
         }
+
+
 
 }

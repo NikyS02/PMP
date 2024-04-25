@@ -71,12 +71,12 @@ public class BankAcc implements Serializable {
     }
 
     private void setAccNumber(int accNumber) {
-        accNumber = accNumber;
+        this.accNumber = accNumber;
     }
 
     public void setData(BankAcc bankAcc, TextView name, TextView accNum, TextView balance) {
         name.setText(this.getName());
-        accNum.setText(String.valueOf(this.getAccNumber()));
+        accNum.setText(String.valueOf(this.getAccNumber()) + "/6942");
         balance.setText("Zůstatek: "+this.getBalance().toString()+" Kč");
     }
 

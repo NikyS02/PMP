@@ -18,6 +18,8 @@ public class Payment implements Serializable {
     private String messageForSender;
     private String date;
 
+    private int accNumberFrom;
+    private int bankCodeFrom;
     Payment(
             int id,
             int accNumber,
@@ -28,7 +30,9 @@ public class Payment implements Serializable {
             int KS,
             String messageForReciever,
             String messageForSender,
-            String date){
+            String date,
+            int accNumberFrom,
+            int bankCodeFrom){
         this.id = id;
         setAccNumber(accNumber);
         setBankCode(bankCode);
@@ -39,6 +43,8 @@ public class Payment implements Serializable {
         setMessageForReciever(messageForReciever);
         setMessageForSender(messageForSender);
         setDate(date);
+        setAccNumberFrom(accNumberFrom);
+        setBankCodeFrom(bankCodeFrom);
     }
 
     public int getAccNumber() {
@@ -113,7 +119,21 @@ public class Payment implements Serializable {
         this.date = date;
     }
 
+    public int getAccNumberFrom() {
+        return accNumberFrom;
+    }
 
+    public void setAccNumberFrom(int accNumberFrom) {
+        this.accNumberFrom = accNumberFrom;
+    }
+
+    public int getBankCodeFrom() {
+        return bankCodeFrom;
+    }
+
+    public void setBankCodeFrom(int bankCodeFrom) {
+        this.bankCodeFrom = bankCodeFrom;
+    }
 }
 
 
