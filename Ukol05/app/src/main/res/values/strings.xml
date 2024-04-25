@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Ukol05</string>
+    <string name="hintCislo">Hodnota musí být vetší nebo rovna 0</string>
+    <string name="textVypocitat">Vypočítat</string>
+    <string name="textVysledek">Výsledek</string>
+    <string name="textUkoncit">Ukončit</string>
+</resources>
